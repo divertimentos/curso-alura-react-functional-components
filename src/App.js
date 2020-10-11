@@ -1,13 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import './App.css';
 import FormularioCadastro from './components/FormularioCadastro/FormularioCadastro';
+import { Container } from '@material-ui/core';
 
 function App() {
   return (
-    <Fragment>
+    <Container component="article" maxWidth="sm">
       <h1>Formulário de Cadastro</h1>
-      <FormularioCadastro placeholder={"Eu sou um form!"} />
-    </Fragment>
+      <FormularioCadastro />
+    </Container>
   );
 }
 
