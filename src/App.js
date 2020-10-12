@@ -16,13 +16,21 @@ function App() {
         align="center">
         Formulário de Cadastro
       </Typography>
-      <FormularioCadastro aoEnviar={aoEnviarForm} />
+      <FormularioCadastro aoEnviar={aoEnviarForm} validarCPF={validarCPF} />
     </Container>
   );
 }
 
 function aoEnviarForm(dados) {
   console.log(dados)
+}
+
+function validarCPF(cpf) {
+  if (cpf.length !== 3) {
+    return { valido: false, texto: "CPF deve ter 3 dígitos" }
+  } else {
+    return { valido: true, texto: "" }
+  }
 }
 
 export default App;

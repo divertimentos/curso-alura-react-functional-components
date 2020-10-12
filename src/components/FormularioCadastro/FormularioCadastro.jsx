@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { TextField, Button, Switch, FormControlLabel } from '@material-ui/core';
 
-function FormularioCadastro({aoEnviar}) {
+function FormularioCadastro({ aoEnviar, validarCPF }) {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [cpf, setCpf] = useState("");
   const [promocoes, setPromocoes] = useState(true);
   const [novidades, setNovidades] = useState(true);
+
+  const [erros, setErros] = useState({ cpf: { valido: true, texto: "" } })
 
   return (
     <form onSubmit={(event) => {
@@ -18,11 +20,6 @@ function FormularioCadastro({aoEnviar}) {
         novidades,
         promocoes
       })
-      // console.log(`Nome: ${nome}`)
-      // console.log(`Sobrenome: ${sobrenome}`)
-      // console.log(`CPF: ${cpf}`)
-      // console.log(`Promoções: ${promocoes}`)
-      // console.log(`Novidades: ${novidades}`)
 
       // Volta o form pro estado original
       setNome("")
@@ -30,7 +27,7 @@ function FormularioCadastro({aoEnviar}) {
       setCpf("")
 
     }}>
-      <TextField
+      <TextField // NOME
         value={nome}
 
         onChange={(event) => {
@@ -43,7 +40,7 @@ function FormularioCadastro({aoEnviar}) {
         variant="outlined"
         fullWidth
       />
-      <TextField
+      <TextField // SOBRENOME
         value={sobrenome}
         onChange={(event) => {
           setSobrenome(event.target.value);
@@ -54,10 +51,17 @@ function FormularioCadastro({aoEnviar}) {
         variant="outlined"
         fullWidth
       />
-      <TextField
+
+      <TextField // CPF
         onChange={(event) => {
           setCpf(event.target.value);
         }}
+        onBlur={(event) => {
+          const isValid = validarCPF(cpf)
+          setErros({ cpf: isValid })
+        }}
+        error={!erros.cpf.valido}
+        helperText={erros.cpf.texto}
         value={cpf}
         id="CPF"
         margin="normal"
@@ -66,7 +70,7 @@ function FormularioCadastro({aoEnviar}) {
         fullWidth
       />
 
-      <FormControlLabel
+      <FormControlLabel // PROMOCOES
         label="Promoções"
         control={
           <Switch
@@ -81,7 +85,7 @@ function FormularioCadastro({aoEnviar}) {
         }
       />
 
-      <FormControlLabel
+      <FormControlLabel // NOVIDADES
         label="Novidades"
         control={
           <Switch
@@ -96,7 +100,7 @@ function FormularioCadastro({aoEnviar}) {
         }
       />
 
-      <Button
+      <Button // CADASTRAR
         variant="contained"
         color="primary"
         type="submit">Cadastrar
