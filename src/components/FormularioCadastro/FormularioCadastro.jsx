@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Switch, FormControlLabel } from '@material-ui/core';
 
-function FormularioCadastro() {
+function FormularioCadastro({aoEnviar}) {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [cpf, setCpf] = useState("");
@@ -11,11 +11,18 @@ function FormularioCadastro() {
   return (
     <form onSubmit={(event) => {
       event.preventDefault();
-      console.log(`Nome: ${nome}`)
-      console.log(`Sobrenome: ${sobrenome}`)
-      console.log(`CPF: ${cpf}`)
-      console.log(`Promoções: ${promocoes}`)
-      console.log(`Novidades: ${novidades}`)
+      aoEnviar({
+        nome,
+        sobrenome,
+        cpf,
+        novidades,
+        promocoes
+      })
+      // console.log(`Nome: ${nome}`)
+      // console.log(`Sobrenome: ${sobrenome}`)
+      // console.log(`CPF: ${cpf}`)
+      // console.log(`Promoções: ${promocoes}`)
+      // console.log(`Novidades: ${novidades}`)
 
       // Volta o form pro estado original
       setNome("")
