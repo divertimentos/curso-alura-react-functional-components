@@ -4,24 +4,31 @@ import { TextField, Button, Switch, FormControlLabel } from '@material-ui/core';
 function FormularioCadastro() {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [promocoes, setPromocoes] = useState(true);
+  const [novidades, setNovidades] = useState(true);
 
   return (
     <form onSubmit={(event) => {
       event.preventDefault();
       console.log(`Nome: ${nome}`)
       console.log(`Sobrenome: ${sobrenome}`)
+      console.log(`CPF: ${cpf}`)
+      console.log(`Promoções: ${promocoes}`)
+      console.log(`Novidades: ${novidades}`)
+
+      // Volta o form pro estado original
+      setNome("")
+      setSobrenome("")
+      setCpf("")
 
     }}>
       <TextField
         value={nome}
 
         onChange={(event) => {
-          let tmpNome = event.target.value;
-          if (tmpNome.length >= 3) {
-            tmpNome = tmpNome.substr(0, 3);
-          }
-          setNome(tmpNome);
-        }} 
+          setNome(event.target.value);
+        }}
 
         id="Nome"
         margin="normal"
@@ -41,6 +48,10 @@ function FormularioCadastro() {
         fullWidth
       />
       <TextField
+        onChange={(event) => {
+          setCpf(event.target.value);
+        }}
+        value={cpf}
         id="CPF"
         margin="normal"
         label="CPF"
@@ -52,9 +63,12 @@ function FormularioCadastro() {
         label="Promoções"
         control={
           <Switch
+            checked={promocoes}
+            onChange={(event) => {
+              setPromocoes(event.target.checked)
+            }}
             name="Promoções"
             margin="normal"
-            defaultChecked={true}
             color="primary"
           />
         }
@@ -64,9 +78,12 @@ function FormularioCadastro() {
         label="Novidades"
         control={
           <Switch
+            checked={novidades}
+            onChange={(event) => {
+              setNovidades(event.target.checked)
+            }}
             name="Novidades"
             margin="normal"
-            defaultChecked={true}
             color="primary"
           />
         }
